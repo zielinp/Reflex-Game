@@ -1,3 +1,7 @@
+/* /////////  TOP PANEL  /////////// */
+
+@import url(https://fonts.googleapis.com/css?family=Bangers);
+
 .top-panel{
   border: 1px solid black;
   width: 100%;
@@ -8,13 +12,66 @@
 }
 
 .info-area{
+  display: flex;
   height: 40px;
-  width: 140px;
-  margin: 5px;
-  border: 1px solid black;
-  border-radius: 8px;
+  width: 150px;
+  /* margin: 10px; */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background:#fff;
+  border: solid black;
+  border-width: 3px 4px 3px 5px;
+  border-radius:95% 4% 92% 5%/4% 95% 6% 95%;
+  transform: rotate(1deg);
+  font-family: 'Bangers';
+  font-size: 25px;
+  text-align: center;
 }
 
+#lifeArea{
+  padding-left: 25px;
+}
+
+/* /////////  HEART  /////////// */
+
+.heart {
+    position: relative;
+    margin:10px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #D02A3B;
+    height: 20px;
+    width: 20px;
+    transform: rotate(-45deg);
+  }
+  .heart::after {
+    background-color: #D02A3B;
+    content: "";
+    border-radius: 50%;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0px;
+    left: 10px;
+  }
+  .heart::before {
+    content: "";
+    background-color: #D02A3B;
+    border-radius: 50%;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: -10px;
+    left: 0px;
+  }
+
+
+
+
+
+/* /////////  GAME BOARD  /////////// */
 
 .game-board{
   border: 1px solid black;
@@ -39,6 +96,8 @@
 
 }
 
+
+/* /////////  BUTTONS PANEL  /////////// */
 .button-panel{
   border: 1px solid black;
   width: 100%;
@@ -53,13 +112,29 @@
   width: 40px;
   margin: 5px;
   background-color: white;
-  border: 1px solid grey;
-  border-radius: 5px;
+  border: solid black;
+  border-width: 2px 2px 4px 4px;
+  border-radius:4% 95% 6% 95%/95% 4% 92% 5%;
+  transform: rotate(-1deg);
 
 }
 
 .reactions-buttons{
-  height: 40px;
-  width: 100px;
-  border-radius: 12px;
+  height: 60px;
+  width: 120px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: solid black;
+  border-width: 3px 4px 3px 5px;
+  border-radius:95% 4% 92% 5%/4% 95% 6% 95%;
+  transform: rotate(1deg);
+  font-family: 'Bangers';
+  font-size: 25px;
+  opacity: 0.9;
+}
+
+.reactions-buttons:hover{
+  cursor: pointer;
+  opacity: 1;
+
 }
