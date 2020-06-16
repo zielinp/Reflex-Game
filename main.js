@@ -66,14 +66,14 @@ class MyBtn {
     this.button.classList.add("reactions-buttons");
   }
 
-  disableButton(){
+  disableButton() {
     this.button.style.setProperty("opacity", "60%"); //cursor: not-allowed";
     this.button.style.setProperty("cursor", "not-allowed");
     this.button.disabled = true;
   }
 
-  enableButton(){
-    this.button.style.setProperty("opacity", "90%");
+  enableButton() {
+    this.button.style.setProperty("opacity", "100%");
     this.button.style.setProperty("cursor", "pointer");
     this.button.disabled = false;
   }
@@ -111,15 +111,21 @@ class GameBtn {
     this.button.style.setProperty("background-color", "white");
     this.is_active = false;
     if (this.was_clicked === false) {
-      licznikZyc--;
-      generateHeart(licznikZyc);
+      life_counter--;
+      generateHeart(life_counter);
 
-      if (licznikZyc === 0) {
-        alert("Koniec gry, bo koniec zyc");
+      if (life_counter === 0) {
+
+        //alert("Koniec gry, bo koniec zyc");
+        showStatement("You have lost all of lives.");
+
         clearInterval(time);
-        clearInterval(proba);
+        clearInterval(attempt);
       }
     }
+  }
+  clear() {
+    this.button.style.setProperty("background-color", "white");
   }
 
   checkState() {
@@ -128,16 +134,17 @@ class GameBtn {
 
       //console.log(this.is_active);
       if (this.is_active == true) {
-        licznikPunktow++;
-        document.querySelector("#scoresArea").innerText = `Score: ${licznikPunktow}`;
+        points_counter++;
+        document.querySelector("#scoresArea").innerText = `Score: ${points_counter}`;
       } else {
-        licznikZyc--;
-        generateHeart(licznikZyc);
+        life_counter--;
+        generateHeart(life_counter);
 
-        if (licznikZyc === 0) {
-          alert("Koniec gry, bo koniec zyc");
+        if (life_counter === 0) {
+          //alert("Koniec gry, bo koniec zyc");
+          showStatement("You have lost all of lives");
           clearInterval(time);
-          clearInterval(proba);
+          clearInterval(attempt);
         }
       }
     });
@@ -148,11 +155,33 @@ class GameBtn {
 
 ////=======================////
 
-let licznikZyc = 3;
-let licznikPunktow = 0;
+function showStatement(message){
+  const area = document.querySelector(".game-board-container");
+  while (area.firstChild) {
+    area.removeChild(area.firstChild);
+  }
+  area.innerText = `${message}`;
+}
+
+
+
+
+
+
+
+
+
+
+let life_counter = 3;
+let points_counter = 0;
 let table_board = new Array();
 
 function generateTableBoard() {
+  const area = document.querySelector(".game-board-container");
+  while (area.firstChild) {
+    area.removeChild(area.firstChild);
+  }
+
   for (let i = 0; i < 25; i++) {
     table_board[i] = new GameBtn(document.querySelector(".game-board-container"));
     table_board[i].createButton();
@@ -160,14 +189,21 @@ function generateTableBoard() {
     table_board[i].checkState();
   }
 }
-generateTableBoard();
+
+function clearTableBoard() {
+  for (let i = 0; i < 25; i++) {
+    table_board[i].clear();
+  }
+}
+
+ //generateTableBoard();
 
 
 function generateRandom() {
   let i = Math.floor(Math.random() * 25);
   table_board[i].activate("yellow");
   console.log(table_board[i]);
-  time2= setTimeout(function() {
+  time2 = setTimeout(function() {
     table_board[i].deactivate();
   }, 1500);
 
@@ -178,7 +214,7 @@ function generateRandom() {
 
 
 
-var proba; // do funkcji generateRandom
+var attempt; // do funkcji generateRandom
 //var time;
 const game_time = 60;
 
@@ -190,40 +226,45 @@ function stoper(seconds) {
 
     if (seconds <= 0) {
       clearInterval(time);
-      clearInterval(proba);
-      alert("Koniec gry, bo koniec czasu");
+      clearInterval(attempt);
+      // alert("Koniec gry, bo koniec czasu");
+      showStatement("End of time");
     }
   }, 1000);
 }
 
 
-function startGame(){
+function startGame() {
+  generateTableBoard();
   start_button.disableButton();
   reset_button.enableButton();
   stoper(game_time);
-  document.querySelector("#scoresArea").innerText = `Score: ${licznikPunktow}`;
-  generateHeart(licznikZyc);
+  document.querySelector("#scoresArea").innerText = `Score: ${points_counter}`;
+  generateHeart(life_counter);
   generateRandom();
-  proba = setInterval(generateRandom, 2000);
+  attempt = setInterval(generateRandom, 2000);
 }
 
 
-function resetGame(){
+function resetGame() {
+  showStatement('');
   reset_button.disableButton();
   start_button.enableButton();
-  document.querySelector("#scoresArea").innerText = `Score: ${licznikPunktow}`;
+  clearTableBoard();
+  document.querySelector("#scoresArea").innerText = `Score: ${points_counter}`;
   clearInterval(time);
-  clearInterval(proba);
+  clearInterval(attempt);
   setInitialState();
   clearTimeout(time2);
 }
 
-function setInitialState(){
-  licznikPunktow = 0;
-  licznikZyc = 3;
-  generateHeart(licznikZyc);
+function setInitialState() {
+  points_counter = 0;
+  life_counter = 3;
+  generateHeart(life_counter);
   document.querySelector("#timeArea").innerText = `Time: ${game_time} s`;
-  document.querySelector("#scoresArea").innerText = `Score: ${licznikPunktow}`;
+  document.querySelector("#scoresArea").innerText = `Score: ${points_counter}`;
+  showStatement('Click the yellow boxes and try to get the most points!');
 }
 
 
