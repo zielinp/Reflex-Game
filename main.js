@@ -117,7 +117,7 @@ class GameBtn {
       if (life_counter === 0) {
 
         //alert("Koniec gry, bo koniec zyc");
-        showStatement("You have lost all of lives.");
+        showStatement("You have lost all lives.");
 
         clearInterval(time);
         clearInterval(attempt);
@@ -142,7 +142,7 @@ class GameBtn {
 
         if (life_counter === 0) {
           //alert("Koniec gry, bo koniec zyc");
-          showStatement("You have lost all of lives");
+          showStatement("You have lost all lives");
           clearInterval(time);
           clearInterval(attempt);
         }
@@ -162,15 +162,6 @@ function showStatement(message){
   }
   area.innerText = `${message}`;
 }
-
-
-
-
-
-
-
-
-
 
 let life_counter = 3;
 let points_counter = 0;
@@ -268,9 +259,6 @@ function setInitialState() {
 }
 
 
-
-
-//do rozkminy czy nie mozna by jakos wykorzysac start_button?
 
 ////=======================////
 // document.getElementById("startButton")
