@@ -1,4 +1,3 @@
-////=====================================//////
 class InfoArea {
   constructor(id) {
     this.id = id;
@@ -22,7 +21,6 @@ scores_area.createArea();
 let time_area = new InfoArea("timeArea");
 time_area.createArea();
 
-////=====================================//////
 class HeartLife {
   constructor() {
     this.div = document.createElement("div");
@@ -33,7 +31,6 @@ class HeartLife {
     this.div.classList.add("heart");
   }
 }
-
 
 function generateHeart(n) {
   const ul = document.querySelector("#lifeArea");
@@ -48,7 +45,6 @@ function generateHeart(n) {
   }
 }
 
-////=====================================//////
 class MyBtn {
   constructor(id, innerText, color) {
     this.button = document.createElement("button");
@@ -85,9 +81,6 @@ start_button.createButton();
 const reset_button = new MyBtn("resetButton", "Reset", "firebrick");
 reset_button.createButton();
 
-
-////=====================================//////
-
 class GameBtn {
   constructor(parent) {
     this.button = document.createElement("button");
@@ -115,9 +108,7 @@ class GameBtn {
       generateHeart(life_counter);
 
       if (life_counter === 0) {
-
-        //alert("Koniec gry, bo koniec zyc");
-        showStatement("You have lost all of lives.");
+        showStatement("You have lost all lives.");
 
         clearInterval(time);
         clearInterval(attempt);
@@ -135,42 +126,30 @@ class GameBtn {
       //console.log(this.is_active);
       if (this.is_active == true) {
         points_counter++;
-        document.querySelector("#scoresArea").innerText = `Score: ${points_counter}`;
+        document.querySelector(
+          "#scoresArea"
+        ).innerText = `Score: ${points_counter}`;
       } else {
         life_counter--;
         generateHeart(life_counter);
 
         if (life_counter === 0) {
-          //alert("Koniec gry, bo koniec zyc");
-          showStatement("You have lost all of lives");
+          showStatement("You have lost all lives");
           clearInterval(time);
           clearInterval(attempt);
         }
       }
     });
   }
-
 }
 
-
-////=======================////
-
-function showStatement(message){
+function showStatement(message) {
   const area = document.querySelector(".game-board-container");
   while (area.firstChild) {
     area.removeChild(area.firstChild);
   }
   area.innerText = `${message}`;
 }
-
-
-
-
-
-
-
-
-
 
 let life_counter = 3;
 let points_counter = 0;
@@ -183,7 +162,9 @@ function generateTableBoard() {
   }
 
   for (let i = 0; i < 25; i++) {
-    table_board[i] = new GameBtn(document.querySelector(".game-board-container"));
+    table_board[i] = new GameBtn(
+      document.querySelector(".game-board-container")
+    );
     table_board[i].createButton();
     console.log(table_board[i]);
     table_board[i].checkState();
@@ -196,14 +177,13 @@ function clearTableBoard() {
   }
 }
 
- //generateTableBoard();
-
+//generateTableBoard();
 
 function generateRandom() {
   let i = Math.floor(Math.random() * 25);
   table_board[i].activate("yellow");
   console.log(table_board[i]);
-  time2 = setTimeout(function() {
+  time2 = setTimeout(function () {
     table_board[i].deactivate();
   }, 1500);
 
@@ -212,27 +192,22 @@ function generateRandom() {
   // }, 1500);
 }
 
-
-
-var attempt; // do funkcji generateRandom
-//var time;
+var attempt;
 const game_time = 60;
 
 function stoper(seconds) {
   document.querySelector("#timeArea").innerText = `Time: ${seconds} s`;
-  time = setInterval(function() {
+  time = setInterval(function () {
     seconds--;
     document.querySelector("#timeArea").innerText = `Time: ${seconds} s`;
 
     if (seconds <= 0) {
       clearInterval(time);
       clearInterval(attempt);
-      // alert("Koniec gry, bo koniec czasu");
       showStatement("End of time");
     }
   }, 1000);
 }
-
 
 function startGame() {
   generateTableBoard();
@@ -245,9 +220,8 @@ function startGame() {
   attempt = setInterval(generateRandom, 2000);
 }
 
-
 function resetGame() {
-  showStatement('');
+  showStatement("");
   reset_button.disableButton();
   start_button.enableButton();
   clearTableBoard();
@@ -264,15 +238,9 @@ function setInitialState() {
   generateHeart(life_counter);
   document.querySelector("#timeArea").innerText = `Time: ${game_time} s`;
   document.querySelector("#scoresArea").innerText = `Score: ${points_counter}`;
-  showStatement('Click the yellow boxes and try to get the most points!');
+  showStatement("Click the yellow boxes and try to get the most points!");
 }
 
-
-
-
-//do rozkminy czy nie mozna by jakos wykorzysac start_button?
-
-////=======================////
 // document.getElementById("startButton")
 start_button.button.addEventListener("click", startGame);
 reset_button.button.addEventListener("click", resetGame);
